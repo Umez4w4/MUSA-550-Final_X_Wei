@@ -1,0 +1,14 @@
+---
+title: "Conclusion"
+format:
+  html:
+    code-fold: true
+---
+
+We can observe that the best potential falls between Brooklyn and Queens. Far rockaway and Bronx are also promising. However, more specified conclusion can be drawn from clustering analysis. While Brooklyn tends to be more capable for development, Queens communities are more adaptive.
+
+From the process, we can compare between clustering and normal process of assessment. While using calibrated weight, we can get an overall adaptive capacity assessment using entropy-TOPSIS method, clustering analysis give us a better group of possible strategies to cope with each different type of community.
+
+For a mid-sized census tract dataset, we need to better categorize the data to make a clear deduction from our findings, which will require a precise categorization approach to further develop our strategies. Clustering procedures are essential tools for multivariate statistical analysis, data mining, and unsupervised machine learning. Among clustering procedures (Anderberg, 2014) (Marzouk & Ghoniem, 2005), weighted k-means partitions minimize the sum of clusters’ second moments and create well-localized domains. K-means clustering is capable of partition units by spatial correlation. The K-means algorithm is suitable for the situation that the number of clusters has already been designated (Liu, et al., 2023).
+
+So, in this scenario, TOPSIS is good for assessment job, while K-means algorithm is good for proposals. For communities classified as “at risk”, we would expect some extreme approaches to be used, including buyout. Local buyout coordinators and public hearing will be conducted. People living in these areas, primarily consisting of lower-income individuals, are predominantly made up of people residing in multi-family rental units. As rising floodwaters increasingly jeopardize their ability to live safely in their homes, these residents are likely to seek relocation assistance from the City, FEMA, or various charitable organizations. If there is a lack of accessible and affordable housing in areas with lower flood risks, these individuals might be compelled to relocate outside of New York City entirely. This potential displacement underscores the need for proactive measures to ensure the availability of safe, affordable housing options in less vulnerable areas. Careful selection of receiving communities and relocating can help these people get integrated into the new neighborhood and get better living conditions. Adapting, stable and future risk means by properly introducing flood mitigation measures, these communities can become receiving communities, relieving the pressure of the limited resources in existing receiving communities. Different development poential and social pressure determine how we choose destination communities when conductiong managed retreat projects.

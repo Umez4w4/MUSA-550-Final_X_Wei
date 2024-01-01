@@ -1,0 +1,88 @@
+---
+title: "Adaptive Capacity and Response Interpretation"
+format:
+  html:
+    code-fold: true
+---
+
+The history of land use in New York city is fraught with redlining and allowing environmental hazards to multiply in some communities, while keeping others safe. It is important to ensure that the community's visions and historic needs are driving local, state, and federal policy. Workshops are conducted to develop recommendations for a community-informed long-term, stable, planned climate migration program that will center communities in the conversation about climate relocation (unlike unplanned responses after extreme weather events).
+
+The Adaptive Capacity index is the final factor in Risk Assessment (Lyu, et al., 2019). Adaptive capacity plays a crucial role in the fields of vulnerability and resilience, yet it is frequently undervalued. By integrating insights from both vulnerability and resilience research, assessments of adaptive capacity can significantly contribute to the development of theory and practice in sustainability science. Such a comprehensive approach, blending elements from these related but distinct areas, enriches our understanding and application of adaptive strategies, ultimately enhancing the effectiveness of sustainability initiatives (Engle, 2011).
+
+
+```{python}
+
+#| fig-cap: "Word cloud analysis from symposium responses on Flood Mitigation Challenges"
+
+import pandas as pd
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+
+df_1 = pd.read_csv('./Data/a.csv')
+
+text = ' '.join(df_1['response'].dropna())
+
+wordcloud = WordCloud(width=800, height=800, 
+                      background_color='white', 
+                      min_font_size=10).generate(text)
+                       
+plt.figure(figsize=(8, 8), facecolor=None) 
+plt.imshow(wordcloud) 
+plt.axis("off") 
+plt.tight_layout(pad=0) 
+  
+plt.show()
+```
+
+```{python}
+
+#| fig-cap: "Word cloud analysis from symposium responses on Displacement and Migration Challenges"
+df_2 = pd.read_csv('./Data/b.csv')
+
+text = ' '.join(df_2['response'].dropna())
+
+wordcloud = WordCloud(width=800, height=800, 
+                      background_color='white', 
+                      min_font_size=10).generate(text)
+                       
+plt.figure(figsize=(8, 8), facecolor=None) 
+plt.imshow(wordcloud) 
+plt.axis("off") 
+plt.tight_layout(pad=0) 
+  
+plt.show()
+
+```
+
+```{python}
+
+#| fig-cap: "Word cloud analysis from symposium responses on Stakeholder Challenges"
+df_3 = pd.read_csv('./Data/c.csv')
+
+text = ' '.join(df_3['response'].dropna())
+
+wordcloud = WordCloud(width=800, height=800, 
+                      background_color='white', 
+                      min_font_size=10).generate(text)
+                       
+plt.figure(figsize=(8, 8), facecolor=None) 
+plt.imshow(wordcloud) 
+plt.axis("off") 
+plt.tight_layout(pad=0) 
+  
+plt.show()
+```
+
+There are three main goals of this bottom-up process: to learn how to talk to communities about planning for anti-displacement, to build capacity within the community to understand how historic planning and future climate risk impact their neighborhood and how they can have agency over what happens to the neighborhood, to build an understanding of what people most care about in planning such that the short and long-term can be linked.
+
+Furthermore, panel discussions with participants interacting with other stakeholders, including DEP and FEMA, will provide more information on how residents perceive government work. These events are supposed to:
+
+Develop recommendations for a community-informed long-term, stable, planned climate migration program that will center communities in the conversation about climate relocation (unlike unplanned responses after extreme weather events),
+
+Inform NYS, NYC, and policy makers on how to discuss and design successful climate migration programs and expand their knowledge of the risk to communities, critical infrastructure, and utilities,
+
+Identify how government and researchers can help communities balance the long-term challenges with the immediate concerns of their lives and livelihoods,
+
+Identify how local governments can engage communities in conversations about land-use changes in ways that build trust and give residents agency over their decisions.
+
+Our findings reveal that stakeholders expect a greater share of responsibility from authorities and agencies, while public funding is also important. Buyout programs raise awareness about displacement, and people are concerned about alternative housing options and community structure. Lack of maintenance and communication between local representatives and government boards are considered as stakeholder challenges.

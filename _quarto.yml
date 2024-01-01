@@ -5,45 +5,39 @@ project:
     port: 3333
 
 website:
-  title: "MUSA 550 Quarto Template"
-  site-url: "https://musa-550-fall-2023.github.io/quarto-website-template" 
-  repo-url: https://github.com/MUSA-550-Fall-2023/quarto-website-template 
+  title: "Adaptive Capacity of New York City"
+  site-url: "https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City" 
+  repo-url: https://github.com/Umez4w4/MUSA-550-Final_X_Wei
   repo-actions: [source]
 
   page-footer:
-    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
-    left: "&copy; CC-Nick Hand, 2023"
+    right: "This page is built with [Quarto](https://quarto.org/) with data acquied from ACS API, NYC DEP, NYC Open Data and Rebuild by Design."
+    left: "&copy; Making Room for the Water, Rebuild by Design, 2012-2024"
 
   sidebar:
-    logo: "images/course-icon.png"
+    logo: "images/MRFTW.png"
     pinned: true
     align: center
     tools: 
       - icon: globe
-        href: https://nickhand.dev
-        text: "Personal Website"
-      - icon: github
-        href: https://github.com/MUSA-550-Fall-2023/
-        text: "MUSA 550 GitHub"
-      - icon: twitter
-        href: https://twitter.com/nicholashand
-        text: "Nick Hand Twitter"         
+        href: https://jweiresilience.com/
+        text: "Personal Website"      
 
     style: "docked"
     search: true
     collapse-level: 2
     contents:
       - href: index.qmd
-        text: Welcome
+        text: Introduction
       - about.qmd
       - section: analysis/index.qmd
         contents:
-          - analysis/1-python-code-blocks.qmd 
-          - analysis/2-static-images.ipynb
-          - analysis/3-altair-hvplot.ipynb
-          - analysis/4-folium.ipynb
-          - analysis/5-OSM.ipynb
-
+          - analysis/Adaptive Capacity and Response Interpretation.qmd
+          - analysis/Infrastructure Capacity and Development Capacity.qmd
+          - analysis/Housing Database and Community Adaptivity.qmd
+      - href: analysis/result.qmd
+        text: Conclusion
+        
 format:
   html:
     highlight-style: solarized

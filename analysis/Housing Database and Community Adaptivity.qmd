@@ -1,0 +1,349 @@
+---
+title: "Housing Database and Community Adaptivity"
+format:
+  html:
+    code-fold: true
+---
+
+Community-based Adaptivity index is based on Rebuild by Design’s Climate Displacement in New York City report (Rebuild by Design, 2022). Moreover, we focus on the ownership rate and people within vulnerable Age Group, as displacement causes larger losses to homeowners and people older than 65 or younger than 15.
+
+Therefore, this index is determined by six demographics and housing-related criteria, which measures how an area is subject to storm-related asset loss and life-threatening situations and leans more to social impact than the previous factors. Data are acquired from ACS API (ACS, 2022). They are:
+
+Households with one or more people 60 years and over;
+Vacancy;
+Renter Occupation;
+Total Population;
+Median household income;
+Median year built.
+
+```{python}
+import pygris
+import geopandas as gpd
+import numpy as np
+import pandas as pd
+
+import requests
+
+import seaborn as sns
+from matplotlib import pyplot as plt
+import holoviews as hv
+import hvplot.pandas
+import matplotlib.font_manager as font_manager
+
+import cenpy
+
+pd.options.display.max_columns = 999
+pd.options.display.max_colwidth = None
+
+available = cenpy.explorer.available()
+
+acs = available.filter(regex="^ACS", axis=0)
+
+available.filter(regex="^ACSDT5Y", axis=0)
+
+acs = cenpy.remote.APIConnection("ACSDT5Y2022")
+
+variables = [
+    "NAME",
+    "B11006_002E", #Households with one or more people 60 years and over
+    "B25002_003E", #Vacancy
+    "B25003_003E", #Renter Occupation
+    "B01003_001E", #Total Population
+    "B19013_001E", #Median household income
+    "B25035_001E", #Median year built
+]
+
+NYC_county_code = ["005","047","061","081","085"]
+NY_state_code = "36"
+
+county_codes = ",".join(NYC_county_code)
+
+NYC_demo_data = acs.query(
+    cols=variables,
+    geo_unit="block group:*",
+    geo_filter={"state": NY_state_code, "county": county_codes, "tract": "*"},
+)
+
+NYC_block_groups = pygris.block_groups(
+    state=NY_state_code, county=NYC_county_code, year=2022
+)
+
+NYC_demo_final = NYC_block_groups.merge(
+    NYC_demo_data,
+    left_on=["STATEFP", "COUNTYFP", "TRACTCE", "BLKGRPCE"],
+    right_on=["state", "county", "tract", "block group"],
+)
+
+NYC_demo_final.rename(columns={
+    "B11006_002E": "Households with 60+",
+    "B25002_003E": "Vacancy",
+    "B25003_003E": "Renter Occupation",
+    "B01003_001E": "Total Population",
+    "B19013_001E": "Median Household Income",
+    "B25035_001E": "Median Year Built"
+}, inplace=True)
+
+NYC_demo_final['Households with 60+'] = pd.to_numeric(NYC_demo_final['Households with 60+'], errors='coerce').fillna(0).astype(int)
+NYC_demo_final['Vacancy'] = pd.to_numeric(NYC_demo_final['Vacancy'], errors='coerce').fillna(0).astype(int)
+NYC_demo_final['Renter Occupation'] = pd.to_numeric(NYC_demo_final['Renter Occupation'], errors='coerce').fillna(0).astype(int)
+NYC_demo_final['Total Population'] = pd.to_numeric(NYC_demo_final['Total Population'], errors='coerce').fillna(0).astype(int)
+
+NYC_demo_final['Median Household Income'] = pd.to_numeric(NYC_demo_final['Median Household Income'], errors='coerce').fillna(0).astype(int)
+median1 = NYC_demo_final['Median Household Income'].median()
+NYC_demo_final['Median Household Income'] = NYC_demo_final['Median Household Income'].mask(NYC_demo_final['Median Household Income'] < 0, median1)
+
+NYC_demo_final['Median Year Built'] = pd.to_numeric(NYC_demo_final['Median Year Built'], errors='coerce').fillna(0).astype(int)
+median2 = NYC_demo_final['Median Year Built'].median()
+NYC_demo_final['Median Year Built'] = NYC_demo_final['Median Year Built'].mask(NYC_demo_final['Median Year Built'] < 0, median2)
+
+```
+
+```{python}
+
+#| fig-cap: "Households with 60+"
+NYC_demo_final.plot(column='Households with 60+', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+```{python}
+
+#| fig-cap: "Vacancy"
+NYC_demo_final.plot(column='Vacancy', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+```{python}
+
+#| fig-cap: "Renter Occupation"
+NYC_demo_final.plot(column='Renter Occupation', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+```{python}
+
+#| fig-cap: "Total Population"
+NYC_demo_final.plot(column='Total Population', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+```{python}
+
+#| fig-cap: "Median Household Income"
+NYC_demo_final.plot(column='Median Household Income', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+```{python}
+
+#| fig-cap: "Median Year Built"
+NYC_demo_final.plot(column='Median Year Built', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+
+Next, we are going to normalize these data. We generally expect less elderly people, Lower ownershiprate, higher vacancy, higher Justice 40 qualification rate represented by lower income, newer houses and smaller population size.
+
+```{python}
+
+from scipy.stats import gmean
+
+NYC_demo_final_Normalized = NYC_demo_final
+
+NYC_demo_final_Normalized['Households with 60+'] = NYC_demo_final_Normalized['Households with 60+']/-1000
+NYC_demo_final_Normalized['Vacancy'] = NYC_demo_final_Normalized['Vacancy']/400
+NYC_demo_final_Normalized['Renter Occupation'] = NYC_demo_final_Normalized['Renter Occupation']/1500
+NYC_demo_final_Normalized['Total Population'] = NYC_demo_final_Normalized['Total Population']/-6000
+NYC_demo_final_Normalized['Median Household Income'] = NYC_demo_final_Normalized['Median Household Income']/-200000
+NYC_demo_final_Normalized['Median Year Built'] = (NYC_demo_final_Normalized['Median Year Built'] - 1900)/122
+
+NYC_demo_final_Normalized.index = NYC_demo_final_Normalized['GEOID']
+columns_to_keep = ["Households with 60+","Vacancy","Renter Occupation","Total Population","Median Household Income","Median Year Built"]
+                                   
+new_df = NYC_demo_final_Normalized[columns_to_keep]
+
+k = -(1/np.log(new_df.shape[0]))
+
+def entropy(X):
+    return (X*np.log(X)).sum()*k
+
+entropy = new_df.apply(entropy)
+
+dod = 1 - entropy
+
+w = dod/dod.sum()
+w.sort_values(ascending = False)
+
+```
+
+TOPSIS, standing for Technique for Order of Preference by Similarity to Ideal Solution, is a method used in multi-criteria decision analysis purposed by Hwang et al. (Yoon & Hwang, 1995). It involves comparing a set of alternatives against a defined set of criteria. This method finds widespread application in various industries within the business sector, being particularly useful whenever there's a need to make an analytical decision grounded in collected data. (Lai, et al., 1994). The entropy weight method is an effective method to accurately weigh the relative importance of the identified criteria for TOPSIS computation, the base of which is the volume of information to calculate the index’s weight (Dehdasht, et al., 2020).
+
+
+Listed above is a set of Entropy-TOPSIS calibrated weight based on pattern of data. Among these variables, Median Year Built,Renter Occupation and Vacancy are of significant importance. So we are going to do a weighted overlay.
+
+```{python}
+NYC_demo_final_Normalized["Adaptivity"] = NYC_demo_final_Normalized['Vacancy']*0.198211
+NYC_demo_final_Normalized["Adaptivity"] = NYC_demo_final_Normalized["Adaptivity"] + 0.461299*NYC_demo_final_Normalized['Median Year Built']
+NYC_demo_final_Normalized["Adaptivity"] = NYC_demo_final_Normalized["Adaptivity"] + 0.345718*NYC_demo_final_Normalized['Renter Occupation']
+columns_to_keep_2 = ["GEOID","Adaptivity","geometry","NAME"]
+NYC_Adaptive_Capacity = NYC_demo_final_Normalized[columns_to_keep_2]
+```
+
+Now, let's join with the previous two criteria.
+
+```{python}
+NYC_demo_final_Normalized["Adaptivity"] = NYC_demo_final_Normalized['Vacancy']*0.198211
+NYC_demo_final_Normalized["Adaptivity"] = NYC_demo_final_Normalized["Adaptivity"] + 0.461299*NYC_demo_final_Normalized['Median Year Built']
+NYC_demo_final_Normalized["Adaptivity"] = NYC_demo_final_Normalized["Adaptivity"] + 0.345718*NYC_demo_final_Normalized['Renter Occupation']
+columns_to_keep_2 = ["GEOID","Adaptivity","geometry","NAME"]
+NYC_Adaptive_Capacity = NYC_demo_final_Normalized[columns_to_keep_2]
+NYC_Adaptive_Capacity.reset_index(inplace=True, drop=True)
+
+Criteria1_2 = pd.read_csv('./Data/Adaptive_And_Development.csv')
+NYC_Adaptive_Capacity['GEOID'] = NYC_Adaptive_Capacity['GEOID'].astype(str)
+NYC_Adaptive_Capacity['GEOID'] = NYC_Adaptive_Capacity['GEOID'].apply(lambda x: x[:-1])
+Criteria1_2['GEOID'] = Criteria1_2['GEOID'].astype(str)
+
+Adaptive_Capacity = NYC_Adaptive_Capacity.merge(Criteria1_2, on='GEOID')
+max_value_1 = Adaptive_Capacity['ADAPTIVE'].max()
+max_value_2 = Adaptive_Capacity['DEVELOPMENT'].max()
+Adaptive_Capacity['ADAPTIVE'] = Adaptive_Capacity['ADAPTIVE']/ max_value_1
+Adaptive_Capacity['DEVELOPMENT'] = Adaptive_Capacity['DEVELOPMENT']/ max_value_2
+
+```
+```{python}
+
+#| fig-cap: "Infrastructure Index"
+Adaptive_Capacity.plot(column='ADAPTIVE', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+```{python}
+
+#| fig-cap: "Development Index"
+Adaptive_Capacity.plot(column='DEVELOPMENT', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+```{python}
+
+#| fig-cap: "Adaptivity Index"
+Adaptive_Capacity.plot(column='Adaptivity', legend=True, cmap='viridis')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+
+```
+Now, we apply again the entropy-TOPSIS method to calibrate the final weight. We can explore some interesting patterns from here.
+
+```{python}
+
+columns_to_keep_3 = ['ADAPTIVE','DEVELOPMENT',"Adaptivity"]
+Final_TOPSIS = Adaptive_Capacity[columns_to_keep_3]
+
+k = -(1/np.log(Final_TOPSIS.shape[0]))
+
+def entropy(X):
+    return (X*np.log(X)).sum()*k
+
+entropy = Final_TOPSIS.apply(entropy)
+
+dod = 1 - entropy
+
+w = dod/dod.sum()
+w.sort_values(ascending = False)
+
+```
+Now we have the new calibrated weight. We can move on to the next step.
+
+```{python}
+
+columns_to_keep_4 = ["GEOID",'ADAPTIVE','DEVELOPMENT',"Adaptivity","geometry","NAME_x"]
+Conclusion = Adaptive_Capacity[columns_to_keep_4]
+Conclusion["TOPSIS_CALIBRATED"]=Conclusion["Adaptivity"]*0.352945 + Conclusion[
+    "ADAPTIVE"]*0.329026 + Conclusion["DEVELOPMENT"]*0.318029
+
+```
+
+The conclusion dataframe is here. The next step is K-means grouping in two ways, thus checking if calibrated weight reflect the types of communities well.
+
+```{python}
+
+#| fig-cap: "Criteria Correlation"
+
+variables = [
+    "ADAPTIVE",
+    "DEVELOPMENT",
+    "Adaptivity",
+]
+
+sns.set_context("notebook", font_scale=1.5)
+
+palette_choice = 'crest'
+sns.pairplot(
+    Conclusion[variables].dropna(),
+    palette=palette_choice,
+    plot_kws=dict(alpha=0.5, edgecolor="none"),
+)
+
+```
+
+```{python}
+#| fig-cap: "K-Means Clustering"
+Conclusion.fillna(0, inplace=True)
+import altair as alt
+from vega_datasets import data as vega_data
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=5, n_init=10)
+kmeans.fit(Conclusion[['ADAPTIVE','DEVELOPMENT','Adaptivity']])
+Conclusion['label'] = kmeans.labels_
+columns_to_keep_5 = ['ADAPTIVE','DEVELOPMENT',"Adaptivity","label"]
+Conclusion_Chart = Conclusion[columns_to_keep_5]
+Conclusion_Chart = Conclusion_Chart.head(5000)
+(
+    alt.Chart(Conclusion_Chart)
+    .mark_circle()
+    .encode(
+        alt.X("ADAPTIVE", scale=alt.Scale(zero=False)),
+        alt.Y("DEVELOPMENT", scale=alt.Scale(zero=False)),
+        size="Adaptivity",
+        color=alt.Color("label", scale=alt.Scale(scheme="viridis")),
+        tooltip=list(Conclusion_Chart.columns),
+    )
+    .properties(width=400, height=300)
+    .interactive()
+)
+```
+
+```{python}
+#| fig-cap: "Clustering Distribution"
+
+Conclusion.plot(column='label', legend=True)
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+```
+
+```{python}
+#| fig-cap: "TOPSIS Distribution"
+
+Conclusion.plot(column='TOPSIS_CALIBRATED', legend=True)
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()
+```

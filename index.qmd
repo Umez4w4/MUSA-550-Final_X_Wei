@@ -1,33 +1,29 @@
 ---
-title: "MUSA 550 Final Project Template"
-subtitle: "An example website demonstrating the power of Quarto for sharing analyses on the web"
+title: "Adaptive Capacity of New York City"
+subtitle: "A multi-approach analysis of flood mitigation possibilities among New York communities"
+format:
+  html:
+    code-fold: true
 ---
 
-## Welcome!
+## Background
 
-We can create beautiful websites that describe complex technical analyses in Python using [Quarto](https://quarto.org) 
-and deploy them online using [GitHub Pages](https://pages.github.com/). This combination of tools is a really powerful way 
-to create and share your work. This website is a demo that is meant to be used to create your own Quarto website for the 
-final project in MUSA 550. 
+Following the devastating impacts of Hurricane Sandy in 2012 and Hurricane Ida in 2021, New York City has been recognized as facing a significantly underappreciated threat from storm-related destruction. These hurricanes have highlighted two distinct facets of climate change-related hazards. Hurricane Sandy exemplified the heightened future risk to coastal communities, a consequence of the synergistic effects of sea-level rise and storm surges. Conversely, Hurricane Ida underscored the susceptibility of the city's aging and overburdened grey infrastructure to extreme rainfall events, particularly in older urban sectors.
 
-Affirmatve
-
-Quarto is a relatively new tool, but is becoming popular quickly. It's a successor 
-to the Rmarkdown ecosystem that combines functionality into a single tool and also extends its computation power to other
-languages. Most importantly for us, Quarto supports executing Python code, allowing us to convert Jupyter notebooks to HTML and share them online.  
-
-::: {.callout-important}
-This template site, including the layout it uses, is just a suggested place to start! For your final project, you're welcome (and encouraged) to 
-make as many changes as you like to best fit your project.
+:::
+![Flood Area](./cell-2-output-2.png){width=8in}
 :::
 
-## Find out more
+Substantial public funding has been directed to areas ravaged by recent disasters, leading to the establishment of initiatives such as Rebuild by Design. These initiatives facilitate dialogue between government entities and community leaders, strategizing neighborhood adaptation to evolving climatic patterns. Focus has predominantly been on coastal defense, exemplified by projects like the NY & NJ Harbor & Tributaries Focus Area Feasibility Study (US Army Corps of Engineers, 2022) and South Shore of Staten Island Coastal Storm Risk Management project (US Army Corps of Engineers, 2016). However, inland flooding, increasingly prevalent, continues to elude significant public attention. Insurance rates hasn’t been updated, especially in north Queens where casualties had been caused by Hurricane Ida and other flash flood events, and there has been appeals for FEMA to update (NYC Government, 2015).
 
-The code for this repository is hosted on our course's GitHub page: [https://github.com/MUSA-550-Fall-2023/quarto-website-template](https://github.com/MUSA-550-Fall-2023/quarto-website-template).
+New York City published Action Plan for the Remnants of Hurricane Ida (NYC DEP, 2023), and our research aligns with this initiative, focusing on risk assessment and community action plans that embrace a trifold strategy: flood mitigation, managed retreat, and densification. This strategy is underpinned by extensive research, incorporating historical flood data, infrastructure network analysis, and SRH-2D simulation modeling, and uses F-AHP – TOPSIS analysis approaches to generate risk assessment. The research phase also resembles the process of top-down approach. We also utilize the bottom-up approach, forming a hybrid methodology for synthesis as we finally categorize sample neighborhoods into three distinct groups: 'At Risk', potentially subject to buyout programs; 'Intermediate', need flood control systems for most extreme weather scenarios; and 'Receiving', envisioned as densified hubs for managed retreat, thereby bolstering local employment and business activities. 
 
-We covered the basics of getting started with Quarto and GitHub Pages in week 9. Take a look at
-[the slides for lecture 9A](https://musa-550-fall-2023.github.io/content/week-9/lecture-9A.html) to find out more.
+On this website, you will see how we have evaluated the Adaptive Capacity of communities in New York City.
+ 
 
+::: {.callout-important}
+This piece of data mining is a part of a joint research and design project “Making Room for The Water (MRFTW)” by Rebuild by Design, ONE Architecture and University of Pennsylvania (https://rebuildbydesign.org/making-room-for-the-water/). This research phase is going to be concluded in a report based on my work and other people’s contributions. All direct contributions from other participants are filtered out so this website is individual work. Some data sources are obtained from events conducted by the research group.
+:::
 
 
 

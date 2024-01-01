@@ -1,35 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://musa-550-fall-2023.github.io/quarto-website-template/index.html</loc>
-    <lastmod>2023-11-02T20:21:13.100Z</lastmod>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/Removed_Code.html</loc>
+    <lastmod>2024-01-01T21:25:32.753Z</lastmod>
   </url>
   <url>
-    <loc>https://musa-550-fall-2023.github.io/quarto-website-template/analysis/5-OSM.html</loc>
-    <lastmod>2023-11-02T20:21:12.489Z</lastmod>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/Analysis_Main.html</loc>
+    <lastmod>2024-01-01T21:25:32.242Z</lastmod>
   </url>
   <url>
-    <loc>https://musa-550-fall-2023.github.io/quarto-website-template/analysis/3-altair-hvplot.html</loc>
-    <lastmod>2023-11-02T20:21:11.780Z</lastmod>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/Infrastructure Capacity and Development Capacity.html</loc>
+    <lastmod>2024-01-01T21:25:29.367Z</lastmod>
   </url>
   <url>
-    <loc>https://musa-550-fall-2023.github.io/quarto-website-template/analysis/1-python-code-blocks.html</loc>
-    <lastmod>2023-11-02T20:21:10.722Z</lastmod>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/Housing Database and Community Adaptivity.html</loc>
+    <lastmod>2024-01-01T21:25:11.832Z</lastmod>
   </url>
   <url>
-    <loc>https://musa-550-fall-2023.github.io/quarto-website-template/about.html</loc>
-    <lastmod>2023-11-02T20:21:06.025Z</lastmod>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/5-OSM.html</loc>
+    <lastmod>2024-01-01T21:23:57.444Z</lastmod>
   </url>
   <url>
-    <loc>https://musa-550-fall-2023.github.io/quarto-website-template/analysis/2-static-images.html</loc>
-    <lastmod>2023-11-02T20:21:11.210Z</lastmod>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/3-altair-hvplot.html</loc>
+    <lastmod>2024-01-01T21:23:56.845Z</lastmod>
   </url>
   <url>
-    <loc>https://musa-550-fall-2023.github.io/quarto-website-template/analysis/4-folium.html</loc>
-    <lastmod>2023-11-02T20:21:12.220Z</lastmod>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/about.html</loc>
+    <lastmod>2024-01-01T21:23:55.915Z</lastmod>
   </url>
   <url>
-    <loc>https://musa-550-fall-2023.github.io/quarto-website-template/analysis/index.html</loc>
-    <lastmod>2023-11-02T20:21:12.759Z</lastmod>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/2-static-image.html</loc>
+    <lastmod>2024-01-01T21:23:56.335Z</lastmod>
+  </url>
+  <url>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/4-folium.html</loc>
+    <lastmod>2024-01-01T21:23:57.212Z</lastmod>
+  </url>
+  <url>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/Adaptive Capacity and Response Interpretation.html</loc>
+    <lastmod>2024-01-01T21:24:03.740Z</lastmod>
+  </url>
+  <url>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/index.html</loc>
+    <lastmod>2024-01-01T21:25:12.085Z</lastmod>
+  </url>
+  <url>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/analysis/result.html</loc>
+    <lastmod>2024-01-01T21:25:29.653Z</lastmod>
+  </url>
+  <url>
+    <loc>https://musa-550-fall-2023.github.io/Adaptive-Capacity-of-New-York-City/index.html</loc>
+    <lastmod>2024-01-01T21:25:32.517Z</lastmod>
   </url>
 </urlset>
